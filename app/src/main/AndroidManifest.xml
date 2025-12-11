@@ -1,0 +1,19 @@
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.flag.secure">
+
+    <application android:label="Disable FLAG_SECURE">
+        <meta-data
+            android:name="xposedmodule"
+            android:value="true" />
+
+        <meta-data
+            android:name="xposedclass"
+            android:value="com.flag.secure.DisableFlagSecure" />
+
+        <meta-data
+            android:name="xposedminversion"
+            android:value="93" />
+    </application>
+
+</manifest>
