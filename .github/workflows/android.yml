@@ -1,0 +1,40 @@
+name: Android Build
+
+
+on:
+push:
+branches: [ "main" ]
+pull_request:
+branches: [ "main" ]
+
+
+jobs:
+build:
+runs-on: ubuntu-latest
+
+
+steps:
+- name: Checkout source
+uses: actions/checkout@v3
+
+
+- name: Set up JDK
+uses: actions/setup-java@v3
+with:
+distribution: 'temurin'
+java-version: '17'
+
+
+- name: Make gradlew executable
+run: chmod +x ./gradlew
+
+
+- name: Build APK
+run: ./gradlew assembleDebug
+
+
+- name: Upload APK artifact
+uses: actions/upload-artifact@v3
+with:
+name: DisableFlagSecure-APK
+path: app/build/outputs/apk/debug/app-debug.apk
