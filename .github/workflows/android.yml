@@ -1,9 +1,9 @@
-name: Build & Release APK
+name: Build APK
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+  pull_request:
 
 jobs:
   build:
@@ -19,18 +19,22 @@ jobs:
           distribution: temurin
           java-version: 17
 
+      # FIX → generate Gradle wrapper compatible with Android
+      - name: Generate Gradle Wrapper (Gradle 8.7)
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 8.7
+          arguments: wrapper
+
       - name: Make gradlew executable
         run: chmod +x gradlew
 
-      - name: Build APK
+      - name: Build Debug APK
         run: ./gradlew assembleDebug
 
-      - name: Create or Update Release
-        uses: softprops/action-gh-release@v2
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
         with:
-          tag_name: latest
-          name: "Latest Build"
-          files: app/build/outputs/apk/debug/*.apk
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: DISABLE_FLAG_SECURE-next.apk
+          path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: warn
