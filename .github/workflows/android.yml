@@ -19,12 +19,23 @@ jobs:
           distribution: temurin
           java-version: 17
 
+      # ✅ Install Android SDK
+      - name: Install Android SDK
+        uses: android-actions/setup-android@v3
+
+      # ✅ Install required SDK packages for compileSdk 34
+      - name: Install required SDK components
+        run: |
+          sdkmanager "platforms;android-34" "build-tools;34.0.0"
+
       - name: Make gradlew executable
         run: chmod +x gradlew
 
-      - name: Build Debug + Release APKs
-        run: ./gradlew assembleDebug assembleRelease
+      # ✅ Build Debug + Release with logs
+      - name: Build APKs
+        run: ./gradlew assembleDebug assembleRelease --stacktrace --info
 
+      # Upload Debug APK
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
@@ -32,6 +43,7 @@ jobs:
           path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
 
+      # Upload Release APK
       - name: Upload Release APK
         uses: actions/upload-artifact@v4
         with:
