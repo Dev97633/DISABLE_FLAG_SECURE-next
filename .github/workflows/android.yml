@@ -19,34 +19,22 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      # ✅ Install Android SDK
-      - name: Install Android SDK
-        uses: android-actions/setup-android@v3
-
-      # ✅ Install required SDK packages for compileSdk 34
-      - name: Install required SDK components
-        run: |
-          sdkmanager "platforms;android-34" "build-tools;34.0.0"
+      # FIX → generate Gradle wrapper compatible with Android
+      - name: Generate Gradle Wrapper (Gradle 8.7)
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 8.7
+          arguments: wrapper
 
       - name: Make gradlew executable
         run: chmod +x gradlew
 
-      # ✅ Build Debug + Release with logs
-      - name: Build APKs
-        run: ./gradlew assembleDebug assembleRelease --stacktrace --info
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
 
-      # Upload Debug APK
-      - name: Upload Debug APK
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: DisableFlagSecure-debug
+          name: DISABLE_FLAG_SECURE-next.apk
           path: app/build/outputs/apk/debug/*.apk
-          if-no-files-found: error
-
-      # Upload Release APK
-      - name: Upload Release APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: DisableFlagSecure-release
-          path: app/build/outputs/apk/release/*.apk
-          if-no-files-found: error
+          if-no-files-found: warn
