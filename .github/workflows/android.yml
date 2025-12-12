@@ -19,22 +19,30 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      # FIX → generate Gradle wrapper compatible with Android
+      # Generate Gradle wrapper for Gradle 8.7
       - name: Generate Gradle Wrapper (Gradle 8.7)
-        uses: gradle/gradle-build-action@v2
-        with:
-          gradle-version: 8.7
-          arguments: wrapper
+        run: |
+          gradle wrapper --gradle-version 8.7
 
       - name: Make gradlew executable
         run: chmod +x gradlew
 
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug
+      # Build Debug + Release
+      - name: Build APKs
+        run: ./gradlew assembleDebug assembleRelease
 
-      - name: Upload APK
+      # Upload Debug APK
+      - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: DISABLE_FLAG_SECURE-next.apk
+          name: DisableFlagSecure-debug
           path: app/build/outputs/apk/debug/*.apk
-          if-no-files-found: warn
+          if-no-files-found: error
+
+      # Upload Release APK
+      - name: Upload Release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: DisableFlagSecure-release
+          path: app/build/outputs/apk/release/*.apk
+          if-no-files-found: error
