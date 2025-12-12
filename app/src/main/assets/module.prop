@@ -1,0 +1,7 @@
+id=com.flag.secure
+name=Disable FLAG_SECURE NEXT
+version=1.0
+versionCode=1
+author=Devendar
+description=Disables FLAG_SECURE globally so screenshots and screen recording work in protected apps.
+minApi=93
