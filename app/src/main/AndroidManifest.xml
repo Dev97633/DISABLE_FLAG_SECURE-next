@@ -10,6 +10,10 @@
             android:name="xposedmodule"
             android:value="true" />
 
+         <meta-data
+                android:name="xposeddescription"
+                android:value="@string/xposed_description"/>
+
         <meta-data
             android:name="xposedclass"
             android:value="com.flag.secure.DisableFlagSecure" />
