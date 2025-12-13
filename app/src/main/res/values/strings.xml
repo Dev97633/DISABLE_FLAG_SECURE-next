@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Disable_FLAG_SECURE-next</string>
+    <string name="xposed_description">Disables FLAG_SECURE globally so screenshots and screen recording work in protected apps</string>
+    <string-array name="scope">
+        <item>android</item>
+    </string-array>
+</resources>
