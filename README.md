@@ -1,3 +1,14 @@
+![Stars](https://img.shields.io/github/stars/Dev97633/DISABLE_FLAG_SECURE-next?style=flat-square)
+![Downloads](https://img.shields.io/github/downloads/Dev97633/DISABLE_FLAG_SECURE-next/total?style=flat-square)
+![Forks](https://img.shields.io/github/forks/Dev97633/DISABLE_FLAG_SECURE-next?style=flat-square)
+![Visitors](https://komarev.com/ghpvc/?username=Dev97633&repo=DISABLE_FLAG_SECURE-next&style=flat-square)
+![Release](https://img.shields.io/github/v/release/Dev97633/DISABLE_FLAG_SECURE-next?style=flat-square)
+
+
+
+
+
+
 # Disable FLAG_SECURE (Xposed / LSPosed / LSPatch)
 
 An **Xposed / LSPosed compatible module** that disables `FLAG_SECURE` for Android applications, allowing screenshots, screen recording, and mirroring in apps that normally block them.
